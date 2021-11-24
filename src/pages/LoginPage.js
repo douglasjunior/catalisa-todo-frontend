@@ -17,21 +17,18 @@ const { Title } = Typography;
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState('')
+  const [formValues, setFormValues] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = useCallback(async () => {
+  const handleLogin = async () => {
     try {
       setLoading(true);
-
       const { email, password } = formValues;
-
-      if (!email || !password) return;
 
       const body = {
         email: email,
         senha: password,
-      }
+      };
 
       const response = await axios.post('/usuarios/login', body);
 
@@ -43,26 +40,28 @@ const LoginPage = () => {
       const { response } = error;
       if (response?.status === 401) {
         Modal.error({
-          title: response.data.mensagem
+          title: response.data.mensagem,
         });
       } else {
         Modal.error({
-          title: 'Não foi possível efetuar login, tente novamente mais tarde.'
-        })
+          title: 'Não foi possível entrar no momento, tente novamente mais tarde.',
+        });
       }
     } finally {
       setLoading(false);
     }
-  }, [formValues, navigate]);
+  };
 
-  const handleInputChange = useCallback((event) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
 
     setFormValues({
       ...formValues,
       [name]: value,
-    })
-  }, [formValues]);
+    });
+  };
+
+  console.log(formValues);
 
   return (
     <Content>
@@ -92,21 +91,21 @@ const LoginPage = () => {
                 name="email"
                 label="E-mail"
                 size="large"
-                onChange={handleInputChange}
                 validate={validateEmail}
-                disabled={loading}
+                onChange={handleInputChange}
                 required
+                disabled={loading}
               />
 
               <InputText
                 name="password"
                 label="Senha"
-                type="password"
                 size="large"
-                onChange={handleInputChange}
                 validate={validatePassword}
-                disabled={loading}
                 required
+                type="password"
+                onChange={handleInputChange}
+                disabled={loading}
               />
 
               <Button
@@ -119,7 +118,10 @@ const LoginPage = () => {
                 Entrar
               </Button>
 
-              <Link to="/subscription" className="ant-btn ant-btn-link ant-btn-lg ant-btn-block">
+              <Link
+                to="/subscription"
+                className="ant-btn ant-btn-link ant-btn-lg ant-btn-block"
+              >
                 Cadastre-se
               </Link>
             </Form>

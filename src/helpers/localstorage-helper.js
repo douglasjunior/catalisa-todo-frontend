@@ -14,7 +14,8 @@ const LocalStorageHelper = {
         try {
             const token = LocalStorageHelper.getToken();
 
-            if (!token) return true;
+            if (!token) return false;
+
             const payload = JwtDecode(token);
 
             const expirationDate = new Date(payload.exp * 1000);

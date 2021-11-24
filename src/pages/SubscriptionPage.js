@@ -34,7 +34,7 @@ const SubscriptionPage = () => {
       }
 
       await axios.post('/usuarios', body);
-      
+
       Modal.success({
         title: 'Cadastro realizado com sucesso, efetue login para continuar.',
       })
@@ -132,7 +132,10 @@ const SubscriptionPage = () => {
                 Cadastrar
               </Button>
 
-              <Link to="/login" className="ant-btn ant-btn-link ant-btn-lg ant-btn-block">
+              <Link
+                to="/login"
+                className="ant-btn ant-btn-link ant-btn-lg ant-btn-block"
+              >
                 Voltar para o login
               </Link>
             </Form>

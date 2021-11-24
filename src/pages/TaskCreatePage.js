@@ -1,6 +1,8 @@
 const TaskCreatePage = () => {
     return (
-        <div></div>
+        <div>
+            Aqui vai o formulário de cadastro de tarefas
+        </div>
     );
 }
 
